@@ -1,0 +1,6 @@
+[package]
+name = "link_shortener"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
