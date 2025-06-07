@@ -1,3 +1,5 @@
+mod errors;
+
 use axum::http::StatusCode;
 
 #[tokio::main]
