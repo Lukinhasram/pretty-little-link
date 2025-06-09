@@ -17,7 +17,7 @@ pub async fn create_short_link_handler(
     State(state): State<AppState>,
     Json(payload): Json<CreateLinkRequest>,
 ) -> Result<Json<ShortLinkResponse>, AppError> {
-    let original_url = shortener::create_short_link(&state.db_pool, &payload.original_url).await?;
+    let short_url = shortener::create_short_link(&state.db_pool, &payload.original_url).await?;
 
     let response = ShortLinkResponse { short_url };
     Ok(Json(response))
@@ -25,7 +25,7 @@ pub async fn create_short_link_handler(
 
 pub async fn redirect_handler(
     State(state): State<AppState>,
-    Path(shot_code): Path<String>,
+    Path(short_code): Path<String>,
 ) -> Result<Redirect, AppError> {
     let original_url = shortener::find_long_url(&state.db_pool, &short_code).await?;
 
