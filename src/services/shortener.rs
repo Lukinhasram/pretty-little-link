@@ -1,7 +1,6 @@
 use crate::errors::AppError;
 use rand::{Rng, distributions::Alphanumeric};
 use sqlx::PgPool;
-use std::panic::resume_unwind;
 
 const SHORT_CODE_LENGHT: usize = 7;
 

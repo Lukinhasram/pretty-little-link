@@ -4,14 +4,12 @@ use crate::{
     models::{CreateLinkRequest, ShortLinkResponse},
     services::shortener,
 };
-use std::os::linux::raw::stat;
 
 use axum::{
     Json,
     extract::{Path, State},
     response::Redirect,
 };
-use rand::distributions::Standard;
 
 pub async fn create_short_link_handler(
     State(state): State<AppState>,
