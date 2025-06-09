@@ -1,4 +1,4 @@
-## Date: 2025-06-07
+### Date: 2025-06-07
 
 **Today's focus**
 * complete the initial project setup and basic axum server
