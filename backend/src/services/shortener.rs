@@ -2,12 +2,12 @@ use crate::errors::AppError;
 use rand::{Rng, distributions::Alphanumeric};
 use sqlx::PgPool;
 
-const SHORT_CODE_LENGHT: usize = 7;
+const SHORT_CODE_LENGTH: usize = 7;
 
 fn generate_short_code() -> String {
     rand::thread_rng()
         .sample_iter(&Alphanumeric)
-        .take(SHORT_CODE_LENGHT)
+        .take(SHORT_CODE_LENGTH)
         .map(char::from)
         .collect()
 }
@@ -60,5 +60,22 @@ pub async fn find_long_url(db_pool: &PgPool, short_code: &str) -> Result<String,
         Err(_) => Err(AppError::InternalServerError(
             "Failed to query database.".to_string(),
         )),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_generate_short_code_length() {
+        let code = generate_short_code();
+        assert_eq!(code.len(), SHORT_CODE_LENGTH);
+    }
+
+    #[test]
+    fn test_generate_short_code_uniqueness_sanity_check() {
+        let code1 = generate_short_code();
+        let code2 = generate_short_code();
+        assert_ne!(code1, code2);
     }
 }
