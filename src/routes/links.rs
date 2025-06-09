@@ -1,31 +1,33 @@
-use std::os::linux::raw::stat;
 use crate::{
+    AppState,
     errors::AppError,
     models::{CreateLinkRequest, ShortLinkResponse},
     services::shortener,
-    AppState
 };
+use std::os::linux::raw::stat;
 
 use axum::{
+    Json,
     extract::{Path, State},
     response::Redirect,
-    Json
 };
 use rand::distributions::Standard;
 
-pub async fn create_short_link_handler( State(state): State<AppState>, Json(payload): Json<CreateLinkRequest> ) -> Result<Json<ShortLinkResponse>, AppError> {
-
+pub async fn create_short_link_handler(
+    State(state): State<AppState>,
+    Json(payload): Json<CreateLinkRequest>,
+) -> Result<Json<ShortLinkResponse>, AppError> {
     let original_url = shortener::create_short_link(&state.db_pool, &payload.original_url).await?;
 
-    let response = ShortLinkResponse {short_url};
+    let response = ShortLinkResponse { short_url };
     Ok(Json(response))
-
 }
 
-pub async fn redirect_handler( State(state): State<AppState>, Path(shot_code): Path<String> ) -> Result<Redirect, AppError> {
-
+pub async fn redirect_handler(
+    State(state): State<AppState>,
+    Path(shot_code): Path<String>,
+) -> Result<Redirect, AppError> {
     let original_url = shortener::find_long_url(&state.db_pool, &short_code).await?;
 
     Ok(Redirect::to(&original_url))
-
 }

@@ -1,7 +1,7 @@
-use std::panic::resume_unwind;
 use crate::errors::AppError;
-use rand::{distributions::Alphanumeric, Rng};
+use rand::{Rng, distributions::Alphanumeric};
 use sqlx::PgPool;
+use std::panic::resume_unwind;
 
 const SHORT_CODE_LENGHT: usize = 7;
 
@@ -13,16 +13,13 @@ fn generate_short_code() -> String {
         .collect()
 }
 
-pub async fn create_short_link( db_pool: &PgPool, original_url: &str ) -> Result<String, AppError> {
-
+pub async fn create_short_link(db_pool: &PgPool, original_url: &str) -> Result<String, AppError> {
     // Loop that handles code collision
     loop {
         let short_code = generate_short_code();
 
         // Try to insert the new link into the database
-        let result = sqlx::query(
-            "INSERT INTO links (short_code, original_url) VALUES ($1, $2)"
-        )
+        let result = sqlx::query("INSERT INTO links (short_code, original_url) VALUES ($1, $2)")
             .bind(&short_code)
             .bind(original_url)
             .execute(db_pool)
@@ -35,35 +32,33 @@ pub async fn create_short_link( db_pool: &PgPool, original_url: &str ) -> Result
             Err(e) => {
                 if let Some(db_err) = e.as_database_error() {
                     if db_err.is_unique_violation() {
-                        continue
+                        continue;
                     }
                 }
 
                 return Err(AppError::InternalServerError(
-                    "Failed to create short link".to_string()
-                ))
+                    "Failed to create short link".to_string(),
+                ));
             }
         }
     }
 }
 
-pub async fn find_long_url( db_pool: &PgPool, short_code: &str) -> Result<String, AppError> {
+pub async fn find_long_url(db_pool: &PgPool, short_code: &str) -> Result<String, AppError> {
     let result = sqlx::query_as::<_, crate::models::Link>(
-        "SELECT id, short_code, original_url FROM links WHERE short_code = $1"
+        "SELECT id, short_code, original_url FROM links WHERE short_code = $1",
     )
-        .bind(short_code)
-        .fetch_one(db_pool)
-        .await;
+    .bind(short_code)
+    .fetch_one(db_pool)
+    .await;
 
     match result {
         Ok(link) => Ok(link.original_url),
 
-        Err(sqlx::Error::RowNotFound) => {
-            Err(AppError::NotFound("Link not found.".to_string()))
-        }
+        Err(sqlx::Error::RowNotFound) => Err(AppError::NotFound("Link not found.".to_string())),
 
         Err(_) => Err(AppError::InternalServerError(
-            "Failed to query database.".to_string()
-        ))
+            "Failed to query database.".to_string(),
+        )),
     }
 }
