@@ -1,5 +1,5 @@
+use backend::{AppState, routes};
 use dotenvy::dotenv;
-use link_shortener::{AppState, routes};
 use sqlx::PgPool;
 use std::net::SocketAddr;
 use tracing_subscriber::{EnvFilter, layer::SubscriberExt, util::SubscriberInitExt};
@@ -10,9 +10,11 @@ async fn main() {
 
     // Tracing setup
     tracing_subscriber::registry()
-        .with(EnvFilter::try_from_default_env().unwrap_or_else(|_| {
-            "backend=debug, tower_http=debug, axum::rejection=trace".into()
-        }))
+        .with(
+            EnvFilter::try_from_default_env().unwrap_or_else(|_| {
+                "backend=debug, tower_http=debug, axum::rejection=trace".into()
+            }),
+        )
         .with(tracing_subscriber::fmt::layer())
         .init();
     tracing::info!("Tracing running.");
