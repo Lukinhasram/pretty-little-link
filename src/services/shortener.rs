@@ -27,6 +27,7 @@ pub async fn create_short_link(db_pool: &PgPool, original_url: &str) -> Result<S
         match result {
             Ok(_) => {
                 let full_url = format!("http://localhost:3000/{}", short_code);
+                return Ok(full_url);
             }
             Err(e) => {
                 if let Some(db_err) = e.as_database_error() {
