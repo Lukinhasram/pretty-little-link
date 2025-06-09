@@ -18,7 +18,7 @@ async fn main() {
     let app_state = AppState { db_pool };
 
     // Router setup
-    let app = routes::app_router();
+    let app = routes::app_router(app_state);
 
     // Running the server
     let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
