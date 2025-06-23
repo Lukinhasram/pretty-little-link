@@ -1,4 +1,16 @@
 services:
+  backend:
+    build:
+      context: ./backend 
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy 
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env
+
   postgres:
     image: postgres:15-alpine
     ports:
