@@ -1,3 +1,3 @@
 /backend/target/
 /backend/.idea/
-**/.env/
+/backend/.env/
