@@ -1,84 +1,54 @@
-import { useState } from 'react';
-import './App.css';
+import "./App.css";
+
+import Header from "./components/Header";
+import URLForm from "./components/URLForm";
+import ResultDisplay from "./components/ResultDisplay";
+
+import mouseImage from "./assets/mouse_image.png";
+
+import { useShortener } from "./hooks/useShortener";
+import { useEffect, useState } from "react";
 
 function App() {
-  // State hooks to manage the form input, API results, and loading/error states.
-  const [originalUrl, setOriginalUrl] = useState('');
-  const [shortUrl, setShortUrl] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+    const { shortURL, isLoading, error, generateShortURL } = useShortener();
+    const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
 
-  // This function is called when the user submits the form.
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevents the browser from reloading the page.
-    
-    // Reset state for a new submission.
-    setShortUrl('');
-    setError(null);
-    setIsLoading(true);
+    useEffect(() =>{
+        document.body.className = theme === "light" ? "light-mode" : "";
+        localStorage.setItem("theme", theme);
+    }, [theme]);
 
-    try {
-      // Use the fetch API to send a POST request to our Rust backend.
-      // This URL works because our backend is running in Docker and mapped to port 3000.
-      const response = await fetch('http://localhost:3000/shorten', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ original_url: originalUrl }),
-      });
+    const toggleTheme = () => {
+        setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+    };
 
-      const data = await response.json();
+    return (
+        <>
+            <button onClick={toggleTheme} className="theme-toggle-button">
+                {theme === 'dark' ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
 
-      if (!response.ok) {
-        // Handle errors returned from the API (e.g., invalid URL).
-        throw new Error(data.error || 'Failed to create short link.');
-      }
+                )}
+            </button>
 
-      setShortUrl(data.short_url); // On success, store the returned short URL.
+            <div className="container">
+                <Header/>
+                <URLForm onShorten={generateShortURL} isLoading={isLoading} />
+                <ResultDisplay shortURL={shortURL} error={error} />
+            </div>
 
-    } catch (err) {
-      setError(err.message); // Store any network or API error message.
-    } finally {
-      setIsLoading(false); // Always stop the loading indicator.
-    }
-  };
-
-  return (
-    <div className="container">
-      <h1>Rust Link Shortener</h1>
-      <p className="subtitle">A fast and simple URL shortener powered by Rust + React</p>
-      <form onSubmit={handleSubmit} className="url-form">
-        <input
-          type="url"
-          placeholder="Enter a long URL to shorten..."
-          value={originalUrl}
-          onChange={(e) => setOriginalUrl(e.target.value)}
-          required
-          className="url-input"
-        />
-        <button type="submit" disabled={isLoading} className="submit-button">
-          {isLoading ? 'Shortening...' : 'Shorten'}
-        </button>
-      </form>
-
-      {/* Conditionally render the result, loading, or error messages */}
-      {shortUrl && (
-        <div className="result-box">
-          <p>Your shortened URL:</p>
-          <a href={shortUrl} target="_blank" rel="noopener noreferrer">
-            {shortUrl}
-          </a>
-        </div>
-      )}
-
-      {error && (
-        <div className="error-box">
-          <p>{error}</p>
-        </div>
-      )}
-    </div>
-  );
+            <a href="https://github.com/Lukinhasram" target="_blank" rel="noopener noreferrer" className="github-link-container">
+                <span className="github-popup-text">Check out my github!</span>                
+                <img
+                    src={mouseImage}
+                    alt="Mouse animal using a computer mouse"
+                    className="mouse-image"
+                />
+            </a>
+        </>
+    );
 }
 
 export default App;

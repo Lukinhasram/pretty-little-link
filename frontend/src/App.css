@@ -1,42 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
+
+:root {
+  --background-color: #0D0D0D;
+  --header-color: #DFF2EF;
+  --paragraph-color: #98A6A4  ;
+  --paragraph-bold-color: #DFF2EF;
+  --button-bg-color: #f37362;
+  --button-bg-hover-color: #c94634;
+  --button-text-color: #0D0D0D;
+  --button-outline-color: #f37362;
+  --input-bg-color: #98a6a46b;
+  --input-bg-hover-color: #98a6a454;
+  --input-border-color: #c5d9d591;
+  --input-border-color-focus: #f37362;
+  --input-text-color: #f1fdfb;
+  --link-color: #f37362;
+  --link-hover-color: #ff3300;
+  --toggle-theme-button-color: #DFF2EF; 
+
+  --h1-font-family: system-ui, sans-serif;
+  
+  --global-border-radius: 2px;
+}
+
+body.light-mode {
+  --background-color: #ffe7d6;
+  --header-color: #73464c;
+  --paragraph-color: #ee6a7c;
+  --paragraph-bold-color: #ab5675;
+  --button-bg-color: #ee6a7c;
+  --button-bg-hover-color: #fa8296;
+  --button-text-color: #ffe7d6;
+  --button-outline-color: #ee6a7c;
+  --input-bg-color: #72dcbaa9;
+  --input-bg-hover-color: #72dcba75;
+  --input-border-color: #34acba;
+  --input-text-color: #155263;
+  --input-border-color-focus: #0d5f67;
+  --link-color: #ba51e7;
+  --link-hover-color: #9233df;
+  --toggle-theme-button-color: #73464c; 
+
+  --h1-font-family: "Cherry Bomb One", sans-serif;
+
+  --global-border-radius: 30px;
+}
+
+body {
+  background-color: var(--background-color);
+  transition: background-color 0.3s;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
+  margin-bottom: 5%;
   padding: 2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+h1 {
+  font-family: var(--h1-font-family);
+  font-size: 54pt;
+  -webkit-text-stroke: 1px var(--h1-stroke-color);
+  color: var(--header-color);
+  margin-bottom: 1rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p {
+  color: var(--paragraph-color);
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+p b {
+  color: var(--paragraph-bold-color);
+  font-weight: 900;
+  /*background-color: #F24BC6;*/
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+
+button.submit-button {
+  color: var(--button-text-color);
+  font-size: 1.2em;
+  font-weight: 700;
+  outline: 2px solid var(--button-outline-color);
+  border-radius: var(--global-border-radius);
+  margin: 5pt;
+  background-color: var(--button-bg-color);
+  padding: .8em 1.6em;
+  cursor: pointer;
+  transition-property: background-color;
+  transition: .25s;
+  border: none;
+}
+button.submit-button:hover {
+  background-color: var(--button-bg-hover-color);
 }
 
-.card {
-  padding: 2em;
+input.url-input {
+  border-radius: var(--global-border-radius);
+  border: 2px solid var(--input-border-color);
+  margin: 5pt;
+  color: var(--input-text-color);
+  background-color: var(--input-bg-color);
+  padding: .8em 2em;
+  text-align: left;
+  font-size: 1em;
+  font-weight: 700;
+  font-family: inherit;
+  min-width: 400pt;
+  transition: .25s;
+}
+input.url-input:hover {
+  background-color: var(--input-bg-hover-color);
+}
+input.url-input:focus {
+  outline: none; /* This removes the browser's default outline */
+  border-color: var(--input-border-color-focus);
+  background-color: var(--input-bg-hover-color);
+  color: var(--input-text-color);
+  opacity: 0.8;
 }
 
-.read-the-docs {
-  color: #888;
+a {
+  font-size: 14pt;
+  font-weight: 700;
+  color: var(--link-color);
+  text-decoration:underline;
+}
+a:hover {
+  color: var(--link-hover-color);
+}
+
+button.theme-toggle-button {
+  color: var(--toggle-theme-button-color);
+  border: none;
+  background: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  user-select: none;
+  cursor: pointer;
+}
+button.theme-toggle-button svg{
+  width: 42px;
+  height: 42px;
+}
+
+div.result-box p {
+  margin-top: 2rem;
+  margin-bottom: .5rem;
+}
+
+.github-link-container {
+  position: fixed;
+  bottom: 20px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.github-popup-text {
+  background-color: var(--input-bg-color);
+  color: var(--header-color);
+  padding: 10px 15px;
+  border-radius: var(--global-border-radius);
+  margin-right: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.github-link-container:hover .github-popup-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+img.mouse-image {
+  /* position, bottom, and right are now on the container */
+  max-width: 300px;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.github-link-container:hover img.mouse-image {
+  transform: scale(1.1);
 }
