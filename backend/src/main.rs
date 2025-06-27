@@ -11,9 +11,8 @@ async fn main() {
     // Tracing setup
     tracing_subscriber::registry()
         .with(
-            EnvFilter::try_from_default_env().unwrap_or_else(|_| {
-                "backend=debug, tower_http=debug, axum::rejection=trace".into()
-            }),
+            EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| "backend=debug,tower_http=debug,axum::rejection=trace".into()),
         )
         .with(tracing_subscriber::fmt::layer())
         .init();
@@ -29,7 +28,7 @@ async fn main() {
     tracing::info!("Database connection pool established.");
 
     // Create AppState
-    let app_state = AppState { db_pool };
+    let app_state = AppState::new(db_pool);
 
     // Router setup
     let app = routes::app_router(app_state);
