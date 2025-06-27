@@ -1,13 +1,13 @@
-use serde::Deserialize;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
+use url::Url;
 
 #[derive(Deserialize)]
 pub struct CreateLinkRequest {
-    pub original_url: String,
+    pub original_url: Url,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ShortLinkResponse {
     pub short_url: String,
 }
