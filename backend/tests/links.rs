@@ -10,30 +10,23 @@ use url::Url;
 
 #[tokio::test]
 async fn create_link_and_redirect_works() {
-    // Arrange
     let test_app = spawn_app().await;
     let server = TestServer::new(test_app.app.clone()).unwrap();
-    let original_url = "https://github.com/tokio-rs/axum";
+    let original_url = "https://github.com/lukinhasram";
 
-    // Act: Create a new short link
     let response = server
         .post("/shorten")
         .json(&json!({ "original_url": original_url }))
         .await;
 
-    // Assert: Creation was successful
     assert_eq!(response.status_code(), StatusCode::CREATED);
 
     let body: ShortLinkResponse = response.json();
 
-    // The response contains a full URL. We need to parse it
-    // and extract just the path for the test server.
     let short_url = Url::parse(&body.short_url).expect("short_url should be a valid URL");
 
-    // Act: Use the short path to get the redirect
     let redirect_response = server.get(short_url.path()).await;
 
-    // Assert: The redirect is correct
     assert_eq!(redirect_response.status_code(), StatusCode::SEE_OTHER);
     let location_header = redirect_response
         .headers()
@@ -46,7 +39,6 @@ async fn create_link_and_redirect_works() {
 
 #[tokio::test]
 async fn create_link_returns_422_for_invalid_data() {
-    // Arrange
     let test_app = spawn_app().await;
     let server = TestServer::new(test_app.app.clone()).unwrap();
     let test_cases = vec![
@@ -59,10 +51,8 @@ async fn create_link_returns_422_for_invalid_data() {
     ];
 
     for (invalid_body, error_message) in test_cases {
-        // Act
         let response = server.post("/shorten").json(&invalid_body).await;
 
-        // Assert
         assert_eq!(
             response.status_code(),
             StatusCode::UNPROCESSABLE_ENTITY,

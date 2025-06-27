@@ -8,7 +8,7 @@ use tokio::runtime::Runtime;
 use tracing_subscriber::{EnvFilter, layer::SubscriberExt, util::SubscriberInitExt};
 use uuid::Uuid;
 
-// Ensure tracing is only initialized once for all tests.
+// Ensure tracing is only initialized once for all tests
 static TRACING: Lazy<()> = Lazy::new(|| {
     let default_filter = "info".to_string();
     let env_filter = EnvFilter::try_from_default_env().unwrap_or(EnvFilter::new(default_filter));
