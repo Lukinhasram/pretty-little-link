@@ -1,10 +1,10 @@
 # Pretty Little Link
 
 ![Rust](https://img.shields.io/badge/Rust-DEA584?style=for-the-badge&logo=rust)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Axum](https://img.shields.io/badge/Axum-000000?style=for-the-badge&logo=rust)
-![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
 ![Postgres](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 ### [🚀 View the Live Application Here](https://pretty-little-link.onrender.com/)
