@@ -1,6 +1,7 @@
 use crate::errors::AppError;
 use rand::{Rng, distributions::Alphanumeric};
 use sqlx::PgPool;
+use std::env;
 
 const SHORT_CODE_LENGTH: usize = 7;
 
@@ -26,7 +27,11 @@ pub async fn create_short_link(db_pool: &PgPool, original_url: &str) -> Result<S
 
         match result {
             Ok(_) => {
-                let full_url = format!("http://localhost:3000/{}", short_code);
+                let base_url = env::var("FRONTEND_URL")
+                    .unwrap_or_else(|_| "http://localhost:3000".to_string());
+
+                // Construct the full URL using the environment-aware base_url
+                let full_url = format!("{}/{}", base_url, short_code);
                 return Ok(full_url);
             }
             Err(e) => {
