@@ -61,7 +61,14 @@ This project is fully containerized. You will need `docker` and `docker-compose`
 2.  **Create the environment file:**
     Create a `.env` file in the project root by copying the example:
     ```bash
-    cp .env.example .env
+    # Variables for the PostgreSQL container
+    POSTGRES_USER=user
+    POSTGRES_PASSWORD=password
+    POSTGRES_DB=link_shortener
+
+    # Full database connection URL for the Rust backend
+    # The hostname 'postgres' must match the service name in docker-compose.yml
+    DATABASE_URL=postgres://user:password@postgres:5432/link_shortener
     ```
 
 3.  **Run the application stack:**
