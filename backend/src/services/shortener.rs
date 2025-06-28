@@ -27,7 +27,7 @@ pub async fn create_short_link(db_pool: &PgPool, original_url: &str) -> Result<S
 
         match result {
             Ok(_) => {
-                let base_url = env::var("FRONTEND_URL")
+                let base_url = env::var("BACKEND_URL")
                     .unwrap_or_else(|_| "http://localhost:3000".to_string());
 
                 // Construct the full URL using the environment-aware base_url
