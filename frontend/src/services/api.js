@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 // Calls the backend API to create a short URL
 // It sends the original URL as a JSON object and expects a short URL in response.
@@ -14,7 +14,7 @@ export const createShortURL = async (originalURL) => {
     });
 
     const data = await response.json();
-    
+        
     if (!response.ok) {
         throw new Error(data.error || 'Failed to create short URL');
     }
