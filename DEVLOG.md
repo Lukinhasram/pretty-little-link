@@ -1,8 +1,74 @@
+### Date: 2025-06-27
+
+**Today's focus:**
+
+* Create a robust integration test suite for the backend API.
+
+**Progress:**
+
+* Built an integration test harness in a `tests/common` module.
+* Enhanced test setup (`spawn_app`) to programmatically create new, unique PostgreSQL databases for each test run, ensuring isolation.
+* Implemented the `Drop` trait on the test application struct for automatic database cleanup after tests.
+* Wrote an end-to-end "happy path" test for `POST /shorten` → `GET /{short_code}` flow.
+* Created a "sad path" test validating 422 Unprocessable Entity responses for invalid inputs.
+
+**Challenges:**
+
+* Learning the pattern for creating per-test databases via template database connections.
+* Correctly implementing the trait for asynchronous cleanup operations.
+* Managing `sqlx` connection pools and async runtime within the test harness.
+
+**Learnings:**
+
+* Professional standards for Rust web service integration testing.
+* Using `axum::TestServer` for in-memory request handling during tests.
+* `sqlx` techniques for programmatic database management.
+* Asynchronous Resource Management with `Drop`.
+
+**Next Steps:**
+
+* Deploy the full-stack application to a live environment.
+
+___
+
+### Date: 2025-06-24 & 2025-06-25
+
+**Today's focus:**
+
+* Build the frontend user interface with React and containerize the full stack for development.
+
+**Progress:**
+
+* Set up React project in `frontend/` using Vite.
+* Refactored frontend into modular architecture with `components/`, `hooks/`, and `services/` directories.
+* Built core UI components: `Header`, `URLForm`, and `ResultDisplay`.
+* Implemented `useShortener` custom hook to manage state and API logic.
+* Created `api.js` service layer for backend communication.
+* Added multi-stage Dockerfile for frontend (production build + Nginx serving).
+* Updated `docker-compose.yml` for full-stack containerized environment (backend, frontend, Postgres).
+
+**Challenges:**
+
+* Debugging CORS issues: Understanding Same-Origin Policy, preflight (OPTIONS) requests, and configuring `tower-http` CorsLayer.
+* Fixing the frontend infinite render loop caused by recursive component calls.
+* Solving Docker networking issues (`vite: not found` → missing npm install; `connection reset` → fixed via `vite.config.js` host exposure).
+
+**Learnings:**
+
+* Structuring React applications with component-based architecture.
+* Core React hooks (especially `useState`).
+* Critical role of CORS.
+* Docker Compose management for full-stack apps with hot-reloading volumes.
+
+**Next Steps:**
+
+* Write a comprehensive test suite for the backend.
+
 ### Date: 2025-06-09
 
 **Today's focus:**
 
-* Implement the core link shortening logic and integrate it with Postgres database.
+* Implement the core link shortening logic and integrate it with the Postgres database.
 
 **Progress:**
 
