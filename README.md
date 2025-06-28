@@ -11,7 +11,7 @@
 
 ---
 
-A full-stack URL shortening service used to create smaller, shareable links from long URLs, built with Rust backend and a React frontend.
+This project is a full-stack URL shortening service used to create smaller, shareable links from long URLs, built with a Rust backend and a React frontend.
 
 ## 🖼️ Application Screenshot 
 
