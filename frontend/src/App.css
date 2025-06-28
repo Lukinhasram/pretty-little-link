@@ -181,7 +181,6 @@ div.result-box p {
 }
 
 img.mouse-image {
-  /* position, bottom, and right are now on the container */
   max-width: 300px;
   user-select: none;
   transition: transform 0.3s ease;
@@ -192,32 +191,29 @@ img.mouse-image {
 }
 
 @media (max-width: 768px) {
-  /* On smaller screens, reduce the padding and margins */
   #root {
     padding: 1rem;
     margin-bottom: 2rem;
   }
 
-  /* Make the title smaller so it fits */
   h1 {
     font-size: 2rem;
   }
 
-  /*
-    This is the main change. We make the form's direction a column,
-    so the input and button stack vertically instead of horizontally.
-  */
   .url-form {
     flex-direction: column;
   }
 
-  /*
-    Remove the fixed minimum width from the input so it can
-    shrink to fit the screen.
-  */
   input.url-input {
     min-width: auto;
-    width: 100%; /* Make the input take up the full available width */
-    box-sizing: border-box; /* Ensures padding doesn't make it overflow */
+    width: 100%; 
+    box-sizing: border-box; 
   }
+
+  img.mouse-image {
+  max-width: 150px;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
 }
