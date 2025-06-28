@@ -7,7 +7,7 @@
 ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-### <a href="https://pretty-little-link.onrender.com/" target="_blank">🚀 View the Live Application Here</a>
+### <a href="https://pretty-little-link.onrender.com/" target="_blank" rel="noopener noreferrer">🚀 View the Live Application Here</a>
 
 ---
 
