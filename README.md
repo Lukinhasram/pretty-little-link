@@ -18,9 +18,10 @@ This project is a full-stack URL shortening service used to create smaller, shar
 <p align="center">
   <img src="https://i.imgur.com/0BqQwcg.png" alt="Application Screenshot" width="800"/>
   <img src="https://i.imgur.com/g9BO6oa.png" alt="Application Screenshot" width="800"/>
+</p>
+<p>
   While the generated code is short, the full URL is currently hosted on Render's free service domain. Making the shortened URL pretty large too 😂.
 </p>
-
 ---
 
 ## ✨ Features
