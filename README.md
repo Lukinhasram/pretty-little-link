@@ -33,7 +33,7 @@ This project is a full-stack URL shortening service used to create smaller, shar
 * **Database Integration:** Persists link data in a PostgreSQL database using the `sqlx` toolkit.
 * **Comprehensive Test Suite:** Includes a full suite of integration tests that create and destroy a separate database for each test run, ensuring 100% test isolation.
 * **Fully Containerized:** The entire stack (backend, frontend, and database) is managed with Docker Compose for a one-command local development setup.
-* **Clean Architecture:** The backend and frontend are separated into distinct modules (`services`, `routes`, `hooks`, `components`), demonstrating a clean, maintainable codebase.
+* **Clean Architecture:** The backend and frontend follow a modular structure, promoting a clean, maintainable codebase through the separation of concerns.
 
 ---
 
