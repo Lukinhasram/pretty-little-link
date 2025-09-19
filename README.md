@@ -7,13 +7,13 @@
 ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-### <a href="https://pretty-little-link.onrender.com/" target="_blank" rel="noopener noreferrer">🚀 View the Live Application Here</a>
+### <a href="https://pretty-little-link.onrender.com/" target="_blank" rel="noopener noreferrer">View the Live Application Here</a>
 
 ---
 
 This project is a full-stack URL shortening service used to create smaller, shareable links from long URLs, built with a Rust backend and a React frontend.
 
-## 🖼️ Application Screenshot 
+## Application Screenshot 
 
 <p align="center">
   <img src="https://i.imgur.com/0BqQwcg.png" alt="Application Screenshot" width="800"/>
@@ -36,7 +36,7 @@ This project is a full-stack URL shortening service used to create smaller, shar
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 * **Backend Framework:** Axum (on Tokio)
 * **Frontend Framework:** React (with Vite)
@@ -47,7 +47,7 @@ This project is a full-stack URL shortening service used to create smaller, shar
 
 ---
 
-## ⚙️ How to Run the Project Locally
+## How to Run the Project Locally
 
 This project is fully containerized. You will need `docker` and `docker-compose` installed globally on your machine.
 
